@@ -23,7 +23,9 @@
                 <td>{{ task.title }}</td>
                 <td>
                     {% if task.id %}
-                        <a href="{% url 'taskDetail' task.id %}" class="btn btn-info">View</a>
+                    <a href="{% url 'taskDetail' task.id %}" class="btn btn-info">View</a>
+                    <a href="{% url 'updateTask' task.id %}" class="btn btn-warning">Update</a>
+                    <a href="{% url 'deleteTask' task.id %}" class="btn btn-danger">Delete</a>
                     {% else %}
                         <span class="btn btn-secondary">No Action Available</span>
                     {% endif %}
