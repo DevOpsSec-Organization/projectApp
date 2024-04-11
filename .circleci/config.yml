@@ -1,0 +1,25 @@
+version: 2.1
+
+workflows:
+  version: 2
+  build:
+    jobs:
+      - build:
+          filters:
+            branches:
+              only:
+                - main
+
+jobs:
+  build:
+    working_directory: ~/projectApp
+    docker:
+      - image: circleci/python:3.8
+    steps:
+      - checkout
+      - run:
+          name: install-dependencies
+          command: pip install -r requirements.txt
+      - run:
+          name: run-tests
+          command: python manage.py test
