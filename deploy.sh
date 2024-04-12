@@ -4,7 +4,9 @@
 set -e
 
 # It's a good practice to log the deployment process
-LOGFILE="/var/log/deploy.log"
+# Create a logs directory in the home directory if it doesn't exist
+mkdir -p $HOME/logs
+LOGFILE="$HOME/logs/deploy.log"
 
 echo "Deployment started: $(date)" >> "$LOGFILE"
 
