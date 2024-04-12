@@ -22,5 +22,12 @@ python3 manage.py migrate
 # Collect static files
 python3 manage.py collectstatic --noinput
 
-# Restart the application using Gunicorn (assumed to be set up as a system service)
-sudo systemctl restart gunicorn.service
+# Restart the application using PM2 and gunicorn
+pm2 restart projectApp
+
+# Deactivate the virtual environment
+deactivate
+
+# echo "Deployment complete."o project directory
+cd projectApp/
+
