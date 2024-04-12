@@ -1,40 +1,26 @@
 #!/bin/bash
 
-# Exit on error
-set -e
+# Update system packages
+sudo apt update && sudo apt install -y python3 python3-pip
 
-# It's a good practice to log the deployment process
-# Create a logs directory in the home directory if it doesn't exist
-mkdir -p $HOME/logs
-LOGFILE="$HOME/logs/deploy.log"
-
-echo "Deployment started: $(date)" >> "$LOGFILE"
-
-# Update the package list
-sudo apt update
-
-# Install Python and pip if not already installed, adjust the versions if necessary
-sudo apt install -y python3 python3-pip
-
-# Optionally install and create a virtual environment for your application if needed
-# sudo apt install -y python3-venv
-# python3 -m venv myvenv
-# source myvenv/bin/activate
+# Ensure pip, virtualenv are installed
+sudo pip3 install --upgrade pip virtualenv
 
 # Navigate to your Django project directory
-cd projectApp/
+cd /path/to/your/django/projectApp
 
-# Install Python dependencies
+# Optionally, setup a virtual environment
+python3 -m virtualenv venv
+source venv/bin/activate
+
+# Install required Python packages
 pip install -r requirements.txt
 
 # Run database migrations
-python manage.py migrate
+python3 manage.py migrate
 
 # Collect static files
-python manage.py collectstatic --noinput
+python3 manage.py collectstatic --noinput
 
-# Restart Gunicorn (or your chosen WSGI server)
-# You should have Gunicorn set up as a service if using this method
-sudo systemctl restart gunicorn
-
-echo "Deployment completed: $(date)" >> "$LOGFILE"
+# Restart the application using Gunicorn (assumed to be set up as a system service)
+sudo systemctl restart gunicorn.service
